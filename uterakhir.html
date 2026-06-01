@@ -11,32 +11,59 @@
     <div class="container">
         <div class="heart-icon">🤍🤍🤍</div>
         <div class="text-box final-text">
-            <p>Sayang, di hari spesialmu ini aku cuma ingin bilang kalau aku sangat bersyukur bisa memilikimu dalam hidupku. Walaupun jarak memisahkan kita, rasa syukurku karena ada kamu tidak pernah berkurang sedikit pun.</p>
-            <br>
-            <p>Maaf kalau sampai sekarang aku masih banyak kurangnya, belum bisa memenuhi semua keinginanmu, dan belum bisa memberikan yang terbaik untukmu. Tapi percayalah, aku selalu berusaha menjadi versi terbaik dari diriku untuk kamu dan untuk hubungan kita.</p>
-            <br>
-            <p>Terima kasih sudah bertahan, percaya, dan tetap ada. Selamat ulang tahun, wanita kesayangan ku. Semoga semua hal baik selalu datang menghampirimu 🤍🤍🤍</p>
+            <p id="f1" style="text-align: center; font-style: italic; margin-bottom: 15px;"></p>
+            <p id="f2" style="text-align: center; font-style: italic; margin-bottom: 15px;"></p>
+            <p id="f3" style="text-align: center; font-style: italic;"></p>
         </div>
     </div>
 
+    <!-- Elemen Audio untuk Meneruskan Lagu -->
     <audio id="backsound" src="akaza_theme.mp3" loop></audio>
 
     <script>
         // MENERUSKAN MUSIK DARI DETIK TERAKHIR
         var audio = document.getElementById('backsound');
-        
         window.addEventListener('load', function() {
             if (localStorage.getItem('musicPlaying') === 'true') {
                 var savedTime = localStorage.getItem('musicCurrentTime');
                 if (savedTime) {
                     audio.currentTime = parseFloat(savedTime);
                 }
-                
                 audio.play().catch(function(err) {
                     console.log("Autoplay ditolak:", err);
                 });
             }
+            // Mulai efek mengetik halaman terakhir
+            typeWriterFinal();
         });
+
+        // SCRIPT EFEK MENGETIK HALAMAN TERAKHIR
+        const finalParagraphs = [
+            { id: "f1", text: "Sayang, di hari spesialmu ini aku cuma ingin bilang kalau aku sangat bersyukur bisa memilikimu dalam hidupku. Walaupun jarak memisahkan kita, rasa syukurku karena ada kamu tidak pernah berkurang sedikit pun." },
+            { id: "f2", text: "Maaf kalau sampai sekarang aku masih banyak kurangnya, belum bisa memenuhi semua keinginanmu, dan belum bisa memberikan yang terbaik untukmu. Tapi percayalah, aku selalu berusaha menjadi versi terbaik dari diriku untuk kamu dan untuk hubungan kita." },
+            { id: "f3", text: "Terima kasih sudah bertahan, percaya, dan tetap ada. Selamat ulang tahun, wanita kesayangan ku. Semoga semua hal baik selalu datang menghampirimu 🤍🤍🤍" }
+        ];
+
+        let fIndex = 0;
+        let fCharIndex = 0;
+        const fSpeed = 35; 
+
+        function typeWriterFinal() {
+            if (fIndex < finalParagraphs.length) {
+                let currentP = finalParagraphs[fIndex];
+                let element = document.getElementById(currentP.id);
+                
+                if (fCharIndex < currentP.text.length) {
+                    element.innerHTML += currentP.text.charAt(fCharIndex);
+                    fCharIndex++;
+                    setTimeout(typeWriterFinal, fSpeed);
+                } else {
+                    fIndex++;
+                    fCharIndex = 0;
+                    setTimeout(typeWriterFinal, 300);
+                }
+            }
+        }
     </script>
 </body>
 </html>

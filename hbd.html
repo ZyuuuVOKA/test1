@@ -10,16 +10,23 @@
 
     <div class="container hbd-container">
         
+        <!-- Bagian Foto Utama dan GIF Kucing Kiri-Kanan -->
         <div class="photo-and-cats-wrapper" style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 25px;">
+            <!-- GIF Kucing Kiri -->
             <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXE0eDZrYzhsMHV4bnJtcm1kZGcya3JvZWNnNnRkYWZwdG54M2x6dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1JmGiBtqTuehfYxuy9/giphy.gif" alt="Cat Left" style="width: 120px; height: auto;">
             
+            <!-- Foto 1 (Tengah) -->
             <img src="foto1.png" alt="Donna" class="foto-utama" style="margin: 0;">
             
+            <!-- GIF Kucing Kanan -->
             <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNm0yYjhyejhlYTF2d203M21hbjhlMnMwOXlvaHdrdW82cGpqaTFsZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qFmdpUKAFZ6rMobzzu/giphy.gif" alt="Cat Right" style="width: 120px; height: auto;">
         </div>
 
+        <!-- Teks Ucapan -->
         <div class="text-box">
-            <h2>Selamat ulang tahun yang ke-22, sayangku Donna Permatasari ❤️</h2>
+            <!-- Efek Tulisan Bergerak Mengetik pada Judul -->
+            <h2><span class="typing-effect">Selamat ulang tahun ke-22, Donna! ❤️</span></h2>
+            
             <p>Hari ini adalah hari spesial karena 22 tahun yang lalu lahir seseorang yang sekarang menjadi orang yang sangat berarti dalam hidupku. Terima kasih sudah hadir, memberikan warna, kebahagiaan, dan banyak kenangan indah dalam setiap hariku.</p>
             <p>Di usiamu yang ke-22 ini, aku berharap semua impian dan cita-citamu bisa terwujud satu per satu. Semoga kamu selalu diberikan kesehatan, kebahagiaan, rezeki yang melimpah, serta kekuatan untuk menghadapi setiap tantangan yang datang.</p>
             <p>Aku juga berharap hubungan kita bisa terus tumbuh menjadi lebih baik, lebih kuat, dan penuh dengan cinta serta pengertian.</p>
@@ -28,6 +35,7 @@
             <p>Selamat ulang tahun ke-22, cintaku. Aku sayang kamu hari ini, besok, dan selamanyaaaa. 🎂🎉❤️</p>
         </div>
 
+        <!-- Galeri Foto Berputar (Carousel 3D untuk foto2 sampai foto16) -->
         <div class="gallery-container">
             <div class="spin-container">
                 <img src="foto2.png" alt="Donna 2">
@@ -48,11 +56,13 @@
             </div>
         </div>
 
+        <!-- Tombol Lanjut -->
         <div class="btn-wrapper">
             <button class="next-btn" onclick="window.location.href='uterakhir.html'">Klik Ya Sayang 👉</button>
         </div>
     </div>
 
+    <!-- Elemen Audio untuk Meneruskan Lagu -->
     <audio id="backsound" src="akaza_theme.mp3" loop></audio>
 
     <script>
@@ -79,7 +89,6 @@
                     console.log("Autoplay ditolak:", err);
                 });
 
-                // Lanjut simpan posisi detik secara realtime di halaman ini
                 setInterval(function() {
                     localStorage.setItem('musicCurrentTime', audio.currentTime);
                 }, 100);

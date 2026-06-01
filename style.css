@@ -22,7 +22,7 @@ body {
     position: relative;
 }
 
-/* Background Romantis Baru dengan GIF Kembang Api */
+/* Background Romantis dengan GIF Kembang Api */
 .bg-romantic {
     background-image: url('kembang_api.gif');
     background-size: cover;
@@ -37,7 +37,6 @@ body {
     position: relative;
 }
 
-/* Overlay transparan agar teks ucapan di atas kembang api tetap mudah dibaca */
 .bg-romantic::before {
     content: '';
     position: absolute;
@@ -45,11 +44,11 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 238, 242, 0.4); /* Mengurangi kepekatan background kembang api sedikit */
+    background: rgba(255, 238, 242, 0.4);
     z-index: 1;
 }
 
-/* --- Efek Hujan Love (Halaman Utama) --- */
+/* --- Efek Hujan Love --- */
 .love-rain-container {
     position: absolute;
     top: 0;
@@ -69,12 +68,10 @@ body {
 }
 
 @keyframes fall {
-    to {
-        transform: translateY(105vh);
-    }
+    to { transform: translateY(105vh); }
 }
 
-/* --- Animasi Amplop (Halaman 1) --- */
+/* --- Animasi Amplop --- */
 .envelope-wrapper {
     position: relative;
     z-index: 2;
@@ -161,27 +158,20 @@ body {
 
 .open-btn:hover { background: #ff0a54; }
 
-/* Trigger Animasi Bukak */
-.envelope.open .flap {
-    transform: rotateX(180deg);
-    z-index: 1;
-}
-.envelope.open .letter {
-    transform: translateY(-80px);
-    z-index: 2;
-}
+.envelope.open .flap { transform: rotateX(180deg); z-index: 1; }
+.envelope.open .letter { transform: translateY(-80px); z-index: 2; }
 
-/* --- Container Konten (Halaman 2 & 3) --- */
+/* --- Container Konten --- */
 .container {
     max-width: 600px;
-    background: rgba(255, 255, 255, 0.9); /* Sedikit lebih tebal agar kontras dengan kembang api */
+    background: rgba(255, 255, 255, 0.9);
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     text-align: center;
     backdrop-filter: blur(8px);
     position: relative;
-    z-index: 2; /* Menempatkan konten di atas overlay background */
+    z-index: 2;
 }
 
 .foto-utama {
@@ -193,10 +183,30 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
+/* --- ANIMASI TULISAN BERGERAK (TYPING EFFECT) --- */
+.typing-effect {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid #ff477e; /* Efek kursor ketik */
+    animation: typing 3.5s steps(35, end), blink-caret 0.75s step-end infinite;
+    max-width: 100%;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #ff477e; }
+}
+
 .text-box h2 {
     color: #ff477e;
     margin-bottom: 15px;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
 .text-box p {
@@ -260,10 +270,7 @@ body {
 }
 
 /* --- Halaman Terakhir --- */
-.final-text p {
-    text-align: center;
-    font-style: italic;
-}
+.final-text p { text-align: center; font-style: italic; }
 .heart-icon {
     font-size: 2.5rem;
     margin-bottom: 15px;
