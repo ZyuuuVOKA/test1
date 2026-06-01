@@ -24,15 +24,16 @@
 
         <!-- Teks Ucapan -->
         <div class="text-box">
-            <!-- Efek Tulisan Bergerak Mengetik pada Judul -->
-            <h2><span class="typing-effect">Selamat ulang tahun ke-22, Donna! ❤️</span></h2>
+            <!-- Judul Menggunakan Animasi CSS -->
+            <h2><span class="typing-effect">Selamat ulang tahun ke-22, Donna Permatasari Kesayangan Ku ❤️</span></h2>
             
-            <p>Hari ini adalah hari spesial karena 22 tahun yang lalu lahir seseorang yang sekarang menjadi orang yang sangat berarti dalam hidupku. Terima kasih sudah hadir, memberikan warna, kebahagiaan, dan banyak kenangan indah dalam setiap hariku.</p>
-            <p>Di usiamu yang ke-22 ini, aku berharap semua impian dan cita-citamu bisa terwujud satu per satu. Semoga kamu selalu diberikan kesehatan, kebahagiaan, rezeki yang melimpah, serta kekuatan untuk menghadapi setiap tantangan yang datang.</p>
-            <p>Aku juga berharap hubungan kita bisa terus tumbuh menjadi lebih baik, lebih kuat, dan penuh dengan cinta serta pengertian.</p>
-            <p>Terima kasih karena selalu berusaha, selalu peduli, dan selalu menjadi dirimu sendiri.</p>
-            <p>Nikmati hari spesialmu ya, sayang. Semoga tahun ini menjadi tahun yang penuh keberuntungan dan kebahagiaan untukmu. Aku akan selalu mendukungmu dan mendoakan yang terbaik untukmu.</p>
-            <p>Selamat ulang tahun ke-22, cintaku. Aku sayang kamu hari ini, besok, dan selamanyaaaa. 🎂🎉❤️</p>
+            <!-- Wadah Paragraf Panjang (Akan Diisi Otomatis oleh JavaScript) -->
+            <p id="p1" style="font-size: 1rem; line-height: 1.6; margin-bottom: 15px; text-align: justify;"></p>
+            <p id="p2" style="font-size: 1rem; line-height: 1.6; margin-bottom: 15px; text-align: justify;"></p>
+            <p id="p3" style="font-size: 1rem; line-height: 1.6; margin-bottom: 15px; text-align: justify;"></p>
+            <p id="p4" style="font-size: 1rem; line-height: 1.6; margin-bottom: 15px; text-align: justify;"></p>
+            <p id="p5" style="font-size: 1rem; line-height: 1.6; margin-bottom: 15px; text-align: justify;"></p>
+            <p id="p6" style="font-size: 1rem; line-height: 1.6; margin-bottom: 15px; text-align: justify;"></p>
         </div>
 
         <!-- Galeri Foto Berputar (Carousel 3D untuk foto2 sampai foto16) -->
@@ -66,7 +67,7 @@
     <audio id="backsound" src="akaza_theme.mp3" loop></audio>
 
     <script>
-        // Mengatur posisi rotasi foto secara otomatis agar melingkar tanpa template literals
+        // 1. Mengatur posisi rotasi foto secara otomatis agar melingkar
         var imgs = document.querySelectorAll('.spin-container img');
         var numImgs = imgs.length;
         imgs.forEach(function(img, index) {
@@ -75,24 +76,60 @@
             img.style.transition = "transform 1s";
         });
 
-        // MENERUSKAN MUSIK DARI DETIK TERAKHIR
+        // 2. Data Paragraf Ucapan Panjang
+        const paragraphs = [
+            { id: "p1", text: "Hari ini adalah hari spesial karena 22 tahun yang lalu lahir seseorang yang sekarang menjadi orang yang sangat berarti dalam hidupku. Terima kasih sudah hadir, memberikan warna, kebahagiaan, dan banyak kenangan indah dalam setiap hariku." },
+            { id: "p2", text: "Di usiamu yang ke-22 ini, aku berharap semua impian dan cita-citamu bisa terwujud satu per satu. Semoga kamu selalu diberikan kesehatan, kebahagiaan, rezeki yang melimpah, serta kekuatan untuk menghadapi setiap tantangan yang datang." },
+            { id: "p3", text: "Aku juga berharap hubungan kita bisa terus tumbuh menjadi lebih baik, lebih kuat, dan penuh dengan cinta serta pengertian." },
+            { id: "p4", text: "Terima kasih karena selalu berusaha, selalu peduli, dan selalu menjadi dirimu sendiri." },
+            { id: "p5", text: "Nikmati hari spesialmu ya, sayang. Semoga tahun ini menjadi tahun yang penuh keberuntungan dan kebahagiaan untukmu. Aku akan selalu mendukungmu dan mendoakan yang terbaik untukmu." },
+            { id: "p6", text: "Selamat ulang tahun ke-22, cintaku. Aku sayang kamu hari ini, besok, dan selamanyaaaa. 🎂🎉❤️" }
+        ];
+
+        let pIndex = 0;
+        let charIndex = 0;
+        const speed = 25; // Kecepatan mengetik per huruf (makin kecil makin cepat)
+
+        function typeWriterAll() {
+            if (pIndex < paragraphs.length) {
+                let currentP = paragraphs[pIndex];
+                let element = document.getElementById(currentP.id);
+                
+                if (element && charIndex < currentP.text.length) {
+                    element.innerHTML += currentP.text.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeWriterAll, speed);
+                } else {
+                    // Paragraf saat ini selesai, pindah ke paragraf berikutnya
+                    pIndex++;
+                    charIndex = 0;
+                    setTimeout(typeWriterAll, 200); // Jeda singkat antar paragraf
+                }
+            }
+        }
+
+        // 3. Menjalankan Musik & Efek Ketik secara bersamaan saat halaman dibuka
         var audio = document.getElementById('backsound');
         
-        window.addEventListener('load', function() {
+        window.addEventListener('DOMContentLoaded', function() {
+            // Jalankan pengetesan musik
             if (localStorage.getItem('musicPlaying') === 'true') {
                 var savedTime = localStorage.getItem('musicCurrentTime');
                 if (savedTime) {
                     audio.currentTime = parseFloat(savedTime);
                 }
-                
                 audio.play().catch(function(err) {
-                    console.log("Autoplay ditolak:", err);
+                    console.log("Autoplay musik ditahan:", err);
                 });
 
+                // Sinkronisasi detik musik terus berjalan
                 setInterval(function() {
                     localStorage.setItem('musicCurrentTime', audio.currentTime);
                 }, 100);
             }
+            
+            // PAKSA JALANKAN EFEK KETIK TANPA MENUNGGU GAMBAR SELESAI LOAD
+            setTimeout(typeWriterAll, 500); 
         });
     </script>
 </body>
