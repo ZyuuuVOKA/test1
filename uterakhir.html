@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terima Kasih Sayang</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-romantic">
+
+    <div class="container">
+        <div class="heart-icon">🤍🤍🤍</div>
+        <div class="text-box final-text">
+            <p>Sayang, di hari spesialmu ini aku cuma ingin bilang kalau aku sangat bersyukur bisa memilikimu dalam hidupku. Walaupun jarak memisahkan kita, rasa syukurku karena ada kamu tidak pernah berkurang sedikit pun.</p>
+            <br>
+            <p>Maaf kalau sampai sekarang aku masih banyak kurangnya, belum bisa memenuhi semua keinginanmu, dan belum bisa memberikan yang terbaik untukmu. Tapi percayalah, aku selalu berusaha menjadi versi terbaik dari diriku untuk kamu dan untuk hubungan kita.</p>
+            <br>
+            <p>Terima kasih sudah bertahan, percaya, dan tetap ada. Selamat ulang tahun, wanita kesayangan ku. Semoga semua hal baik selalu datang menghampirimu 🤍🤍🤍</p>
+        </div>
+    </div>
+
+    <audio id="backsound" src="akaza_theme.mp3" loop></audio>
+
+    <script>
+        // Meneruskan musik dari halaman sebelumnya
+        window.addEventListener('load', function() {
+            var audio = document.getElementById('backsound');
+            if (localStorage.getItem('musicPlaying') === 'true') {
+                audio.play().catch(err => console.log(err));
+            }
+        });
+    </script>
+</body>
+</html>

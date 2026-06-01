@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Sayangku Donna</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-rain">
+    <div class="love-rain-container"></div>
+
+    <audio id="backsound" src="akaza_theme.mp3" loop></audio>
+
+    <div class="envelope-wrapper">
+        <img src="foto15.png" alt="Donna Permatasari" class="photo-above">
+        
+        <div class="envelope">
+            <div class="flap"></div>
+            <div class="pocket"></div>
+            <div class="letter">
+                <p>Spesial untukmu ❤️</p>
+            </div>
+            <button class="open-btn" onclick="openEnvelope()">Buka Surat ✨</button>
+        </div>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            const envelope = document.querySelector('.envelope');
+            const audio = document.getElementById('backsound');
+            
+            // Putar musik dan simpan statusnya agar berlanjut di halaman berikutnya
+            audio.play().then(() => {
+                localStorage.setItem('musicPlaying', 'true');
+            }).catch(err => console.log("Audio play diblokir browser:", err));
+
+            envelope.classList.add('open');
+            
+            // Menunggu animasi selesai lalu pindah halaman
+            setTimeout(() => {
+                window.location.href = 'hbd.html';
+            }, 1500);
+        }
+
+        // Generate hujan love menggunakan JS
+        const rainContainer = document.querySelector('.love-rain-container');
+        for (let i = 0; i < 30; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-rain');
+            heart.innerText = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            rainContainer.appendChild(heart);
+        }
+    </script>
+</body>
+</html>

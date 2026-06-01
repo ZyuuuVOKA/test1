@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Donna! 🎉</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-romantic">
+
+    <div class="container hbd-container">
+        
+        <div class="photo-and-cats-wrapper" style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 25px;">
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXE0eDZrYzhsMHV4bnJtcm1kZGcya3JvZWNnNnRkYWZwdG54M2x6dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1JmGiBtqTuehfYxuy9/giphy.gif" alt="Cat Left" style="width: 120px; height: auto;">
+            
+            <img src="foto1.png" alt="Donna" class="foto-utama" style="margin: 0;">
+            
+            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNm0yYjhyejhlYTF2d203M21hbjhlMnMwOXlvaHdrdW82cGpqaTFsZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qFmdpUKAFZ6rMobzzu/giphy.gif" alt="Cat Right" style="width: 120px; height: auto;">
+        </div>
+
+        <div class="text-box">
+            <h2>Selamat ulang tahun yang ke-22, sayangku Donna Permatasari ❤️</h2>
+            <p>Hari ini adalah hari spesial karena 22 tahun yang lalu lahir seseorang yang sekarang menjadi orang yang sangat berarti dalam hidupku. Terima kasih sudah hadir, memberikan warna, kebahagiaan, dan banyak kenangan indah dalam setiap hariku.</p>
+            <p>Di usiamu yang ke-22 ini, aku berharap semua impian dan cita-citamu bisa terwujud satu per satu. Semoga kamu selalu diberikan kesehatan, kebahagiaan, rezeki yang melimpah, serta kekuatan untuk menghadapi setiap tantangan yang datang.</p>
+            <p>Aku juga berharap hubungan kita bisa terus tumbuh menjadi lebih baik, lebih kuat, dan penuh dengan cinta serta pengertian.</p>
+            <p>Terima kasih karena selalu berusaha, selalu peduli, dan selalu menjadi dirimu sendiri.</p>
+            <p>Nikmati hari spesialmu ya, sayang. Semoga tahun ini menjadi tahun yang penuh keberuntungan dan kebahagiaan untukmu. Aku akan selalu mendukungmu dan mendoakan yang terbaik untukmu.</p>
+            <p>Selamat ulang tahun ke-22, cintaku. Aku sayang kamu hari ini, besok, dan selamanyaaaa. 🎂🎉❤️</p>
+        </div>
+
+        <div class="gallery-container">
+            <div class="spin-container">
+                <img src="foto2.png" alt="Donna 2">
+                <img src="foto3.png" alt="Donna 3">
+                <img src="foto4.png" alt="Donna 4">
+                <img src="foto5.png" alt="Donna 5">
+                <img src="foto6.png" alt="Donna 6">
+                <img src="foto7.png" alt="Donna 7">
+                <img src="foto8.png" alt="Donna 8">
+                <img src="foto9.png" alt="Donna 9">
+                <img src="foto10.png" alt="Donna 10">
+                <img src="foto11.png" alt="Donna 11">
+                <img src="foto12.png" alt="Donna 12">
+                <img src="foto13.png" alt="Donna 13">
+                <img src="foto14.png" alt="Donna 14">
+                <img src="foto15.png" alt="Donna 15">
+                <img src="foto16.png" alt="Donna 16">
+            </div>
+        </div>
+
+        <div class="btn-wrapper">
+            <button class="next-btn" onclick="window.location.href='uterakhir.html'">Klik Ya Sayang 👉</button>
+        </div>
+    </div>
+
+    <audio id="backsound" src="akaza_theme.mp3" loop></audio>
+
+    <script>
+        // Mengatur posisi rotasi foto secara otomatis agar melingkar tanpa template literals
+        var imgs = document.querySelectorAll('.spin-container img');
+        var numImgs = imgs.length;
+        imgs.forEach(function(img, index) {
+            var angle = index * (360 / numImgs);
+            img.style.transform = "rotateY(" + angle + "deg) translateZ(250px)";
+            img.style.transition = "transform 1s";
+        });
+
+        // Meneruskan musik dari halaman sebelumnya
+        window.addEventListener('load', function() {
+            var audio = document.getElementById('backsound');
+            if (localStorage.getItem('musicPlaying') === 'true') {
+                audio.play().catch(err => console.log(err));
+            }
+        });
+    </script>
+</body>
+</html>

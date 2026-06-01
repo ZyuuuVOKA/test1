@@ -1,0 +1,275 @@
+/* --- Reset & Base Style --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: #ffeef2;
+    color: #4a4a4a;
+}
+
+/* --- Backgrounds --- */
+.bg-rain {
+    background: #ffe3e8;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Background Romantis Baru dengan GIF Kembang Api */
+.bg-romantic {
+    background-image: url('kembang_api.gif');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Overlay transparan agar teks ucapan di atas kembang api tetap mudah dibaca */
+.bg-romantic::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 238, 242, 0.4); /* Mengurangi kepekatan background kembang api sedikit */
+    z-index: 1;
+}
+
+/* --- Efek Hujan Love (Halaman Utama) --- */
+.love-rain-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.heart-rain {
+    position: absolute;
+    top: -20px;
+    animation: fall linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(105vh);
+    }
+}
+
+/* --- Animasi Amplop (Halaman 1) --- */
+.envelope-wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.photo-above {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+    z-index: 3;
+}
+
+.envelope {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    background: #ffb3c1;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-radius: 0 0 10px 10px;
+}
+
+.envelope .flap {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 100px solid #ff85a1;
+    transform-origin: top;
+    transition: transform 0.5s ease;
+    z-index: 3;
+}
+
+.envelope .pocket {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid #ff94b0;
+    border-right: 140px solid #ff94b0;
+    border-bottom: 90px solid #ff94b0;
+    z-index: 2;
+    border-radius: 0 0 10px 10px;
+}
+
+.envelope .letter {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    width: 250px;
+    height: 140px;
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.5s ease;
+    z-index: 1;
+}
+
+.open-btn {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    padding: 10px 20px;
+    background: #ff477e;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.open-btn:hover { background: #ff0a54; }
+
+/* Trigger Animasi Bukak */
+.envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+.envelope.open .letter {
+    transform: translateY(-80px);
+    z-index: 2;
+}
+
+/* --- Container Konten (Halaman 2 & 3) --- */
+.container {
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.9); /* Sedikit lebih tebal agar kontras dengan kembang api */
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    text-align: center;
+    backdrop-filter: blur(8px);
+    position: relative;
+    z-index: 2; /* Menempatkan konten di atas overlay background */
+}
+
+.foto-utama {
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.text-box h2 {
+    color: #ff477e;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.text-box p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+/* --- Galeri Foto Berputar 3D --- */
+.gallery-container {
+    margin: 60px auto;
+    width: 130px;
+    height: 180px;
+    position: relative;
+    perspective: 1000px;
+}
+
+.spin-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: spin 20s linear infinite;
+}
+
+.spin-container img {
+    position: absolute;
+    width: 100px;
+    height: 130px;
+    left: 10px;
+    top: 10px;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+@keyframes spin {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+/* --- Button Style --- */
+.btn-wrapper { margin-top: 30px; }
+.next-btn {
+    padding: 12px 30px;
+    background: #ff477e;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
+    transition: 0.3s;
+}
+.next-btn:hover {
+    background: #ff0a54;
+    transform: scale(1.05);
+}
+
+/* --- Halaman Terakhir --- */
+.final-text p {
+    text-align: center;
+    font-style: italic;
+}
+.heart-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
