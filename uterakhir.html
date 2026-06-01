@@ -22,11 +22,19 @@
     <audio id="backsound" src="akaza_theme.mp3" loop></audio>
 
     <script>
-        // Meneruskan musik dari halaman sebelumnya
+        // MENERUSKAN MUSIK DARI DETIK TERAKHIR
+        var audio = document.getElementById('backsound');
+        
         window.addEventListener('load', function() {
-            var audio = document.getElementById('backsound');
             if (localStorage.getItem('musicPlaying') === 'true') {
-                audio.play().catch(err => console.log(err));
+                var savedTime = localStorage.getItem('musicCurrentTime');
+                if (savedTime) {
+                    audio.currentTime = parseFloat(savedTime);
+                }
+                
+                audio.play().catch(function(err) {
+                    console.log("Autoplay ditolak:", err);
+                });
             }
         });
     </script>

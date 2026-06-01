@@ -65,11 +65,24 @@
             img.style.transition = "transform 1s";
         });
 
-        // Meneruskan musik dari halaman sebelumnya
+        // MENERUSKAN MUSIK DARI DETIK TERAKHIR
+        var audio = document.getElementById('backsound');
+        
         window.addEventListener('load', function() {
-            var audio = document.getElementById('backsound');
             if (localStorage.getItem('musicPlaying') === 'true') {
-                audio.play().catch(err => console.log(err));
+                var savedTime = localStorage.getItem('musicCurrentTime');
+                if (savedTime) {
+                    audio.currentTime = parseFloat(savedTime);
+                }
+                
+                audio.play().catch(function(err) {
+                    console.log("Autoplay ditolak:", err);
+                });
+
+                // Lanjut simpan posisi detik secara realtime di halaman ini
+                setInterval(function() {
+                    localStorage.setItem('musicCurrentTime', audio.currentTime);
+                }, 100);
             }
         });
     </script>
