@@ -3,61 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untuk Sayangku Donna</title>
+    <title>Selamat Ulang Tahun Sayang ❤️</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-rain">
-    <div class="love-rain-container"></div>
+<body class="bg-romantic">
 
-    <audio id="backsound" src="akaza_theme.mp3" loop></audio>
-
-    <div class="envelope-wrapper">
-        <img src="foto7.png" alt="Donna Permatasari" class="photo-above">
+    <div class="container">
+        <div class="heart-icon">❤️🎁✨</div>
         
-        <div class="envelope">
-            <div class="flap"></div>
-            <div class="pocket"></div>
-            <div class="letter">
-                <p>Spesial untukmu ❤️</p>
-                 <p>Dari Seekor Alif</p>
-            </div>
-            <button class="open-btn" onclick="openEnvelope()">Buka Surat ✨</button>
+        <div class="text-box">
+            <h1 id="main-title" style="color: #ff477e; margin-bottom: 15px; text-align: center;">Hai Kesayanganku Donna Permatasari...</h1>
+            <p id="typing-text" style="text-align: center; font-size: 1.1rem; line-height: 1.6; min-height: 80px;"></p>
+        </div>
+
+        <div class="btn-wrapper" id="main-btn-area">
+            <button class="next-btn" onclick="mulaiPetualangan()">Klik Ini Sayang 👉</button>
+        </div>
+
+        <div class="btn-wrapper" id="secret-author-btn" style="display: none; margin-top: 15px;">
+            <button class="next-btn" style="background: #6c757d; border-color: #5a6268; box-shadow: 0 0 15px rgba(108, 117, 125, 0.4);" onclick="window.location.href='tpembuat.html'">Tentang Pembuat 🧑‍💻</button>
         </div>
     </div>
 
+    <audio id="backsound" src="akaza_theme.mp3" loop></audio>
+
     <script>
-        function openEnvelope() {
-            const envelope = document.querySelector('.envelope');
-            const audio = document.getElementById('backsound');
-            
-            // Putar musik dan simpan status serta detik lagu secara realtime sebelum pindah
-            audio.play().then(() => {
+        // --- 1. EFEK MENGETIK OTOMATIS (TYPING EFFECT) ---
+        const ucapanAwal = "Ada sesuatu yang ingin aku tunjukkan dan sampaikan spesial di hari ulang tahunmu ini. Tolong buka dan ikuti setiap halamannya sampai akhir ya sayang... ❤️";
+        let charIndex = 0;
+        const typeSpeed = 40; // Kecepatan mengetik teks pembuka
+
+        function typeWriter() {
+            let element = document.getElementById("typing-text");
+            if (element && charIndex < ucapanAwal.length) {
+                element.innerHTML = element.innerHTML + ucapanAwal.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, typeSpeed);
+            }
+        }
+
+        // --- 2. SISTEM MANAJEMEN MUSIK (TERUS MENYALA & TIDAK RESET) ---
+        var audio = document.getElementById('backsound');
+
+        function mulaiPetualangan() {
+            // Nyalakan musik dan simpan status di localStorage
+            audio.play().then(function() {
                 localStorage.setItem('musicPlaying', 'true');
-                
-                setInterval(() => {
+                // Mengarahkan ke halaman kedua (hbd.html)
+                window.location.href = 'hbd.html';
+            }).catch(function(err) {
+                console.log("Musik gagal diputar otomatis:", err);
+                // Tetap pindah halaman walaupun audio sempat terblokir browser
+                window.location.href = 'hbd.html';
+            });
+        }
+
+        // --- 3. PENGECEKAN TOMBOL RAHASIA SAAT HALAMAN DI-LOAD ---
+        window.addEventListener('DOMContentLoaded', function() {
+            // Jalankan efek mengetik otomatis
+            setTimeout(typeWriter, 500);
+
+            // Cek apakah Donna sudah pernah sampai halaman paling akhir
+            if (localStorage.getItem('petualanganSelesai') === 'true') {
+                var tombolRahasia = document.getElementById('secret-author-btn');
+                if (tombolRahasia) {
+                    tombolRahasia.style.display = 'block';
+                }
+            }
+
+            // Meneruskan putaran musik jika dari halaman lain kembali ke sini
+            if (localStorage.getItem('musicPlaying') === 'true') {
+                var savedTime = localStorage.getItem('musicCurrentTime');
+                if (savedTime) {
+                    audio.currentTime = parseFloat(savedTime);
+                }
+                audio.play().catch(function(err) {
+                    console.log("Autoplay musik tertahan browser:", err);
+                });
+
+                // Update posisi detik musik secara berkala ke memori local
+                setInterval(function() {
                     localStorage.setItem('musicCurrentTime', audio.currentTime);
                 }, 100);
-            }).catch(err => console.log("Audio play diblokir browser:", err));
-
-            envelope.classList.add('open');
-            
-            // Menunggu animasi selesai lalu pindah halaman
-            setTimeout(() => {
-                window.location.href = 'hbd.html';
-            }, 1500);
-        }
-
-        // Generate hujan love menggunakan JS
-        const rainContainer = document.querySelector('.love-rain-container');
-        for (let i = 0; i < 30; i++) {
-            const heart = document.createElement('div');
-            heart.classList.add('heart-rain');
-            heart.innerText = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
-            rainContainer.appendChild(heart);
-        }
+            }
+        });
     </script>
 </body>
 </html>

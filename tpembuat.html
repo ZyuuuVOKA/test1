@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerita Tentangku - Alif Andhika</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .author-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.88);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        .author-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            text-align: justify;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        /* Desain untuk area wadah GIF kucing agar posisinya pas di tengah */
+        .cat-gif-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            min-height: 150px; /* Biar layout tidak lompat-lompat saat ganti GIF */
+        }
+        .cat-gif-wrapper img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-romantic">
+
+    <div class="container author-container">
+        <h2 style="color: #ff477e; margin-bottom: 25px; text-align: center;">Cerita di Balik Website Ini 📝</h2>
+        
+        <div class="cat-gif-wrapper">
+            <img id="cat-gif" src="kucing-lambai.gif" alt="Kucing Lucu">
+        </div>
+
+        <div class="text-box">
+            <p id="t1" class="author-text" style="font-weight: bold; text-align: center; color: #ff477e;"></p>
+            <p id="t2" class="author-text"></p>
+            <p id="t3" class="author-text"></p>
+            <p id="t4" class="author-text" style="font-weight: bold; text-align: center; font-size: 1.25rem; color: #ff0a54; margin-top: 30px;"></p>
+        </div>
+
+        <div class="btn-wrapper" id="reset-btn-area" style="display: none; margin-top: 30px;">
+            <button class="next-btn" onclick="mulaiUlangSemua()">Mulai dari Awal Lagi 🔄</button>
+        </div>
+    </div>
+
+    <audio id="backsound" src="akaza_theme.mp3" loop></audio>
+
+    <script>
+        // Data Narasi Ungkapan Jujur Alif Andhika beserta penanda GIF-nya
+        const ceritaAlif = [
+            { 
+                id: "t1", 
+                gif: "kucing-lambai.gif",
+                text: "Hallo saya Alif Andhika P.N saya pembuat website ini untuk wanita kesayangan ku, aku harap kamu suka yaa, namun maaf kalo kamu bertemu aku dengan diri ku yang dulunya kurang baik." 
+            },
+            { 
+                id: "t2", 
+                gif: "kucing-takut.gif",
+                text: "Sebelum ada kamu di hidupku, duniaku terasa sangat kelam. Sejak kecil, aku tumbuh sebagai korban bullying, menahan rasa sakit baik secara mental maupun fisik. Di masa SD, aku sama sekali tidak dihargai, dipojokkan, bahkan difitnah yang enggak-enggak oleh teman-teman sendiri. Kesedihan itu tidak berhenti di sekolah, karena di dalam lingkaran keluarga pun aku sering kali direndahkan dan dimaki. Cobaan hidup terasa semakin berat saat aku mengalami kecelakaan hebat yang berakibat pada minus fisik permanen—membuat caraku berbicara terganggu dan sering kali tidak terdengar jelas oleh orang lain. Semua luka bertubi-tubi itu membuatku tumbuh menjadi pribadi yang overthinking berlebihan dan sangat susah bersosialisasi dengan masyarakat sekitar." 
+            },
+            { 
+                id: "t3", 
+                gif: "kucing-bahagia.gif",
+                text: "Namun, segala getirnya masa lalu itu mendadak hilang dan terasa berharga saat takdir mempertemukanku denganmu. Aku merasa menjadi pria paling beruntung di dunia ini karena bisa bertemu dirimu. Memiliki kamu adalah kebahagiaan terbesar yang pernah hadir di hidupku. Saking berharganya kamu, muncul rasa takut yang teramat besar di lubuk hatiku akan kehilangan dirimu. Ketahuilah sayang, aku sangat, sangat sayang kepadamu. Terima kasih sudah menerima segala kekuranganku." 
+            },
+            { 
+                id: "t4", 
+                gif: "kucing-bahagia.gif",
+                text: "Selamat Ulang Tahun Ya Sayang! 🎂🎉❤️" 
+            }
+        ];
+
+        let tIndex = 0;
+        let tCharIndex = 0;
+        const tSpeed = 35; 
+
+        function typeWriterStory() {
+            if (tIndex < ceritaAlif.length) {
+                let currentP = ceritaAlif[tIndex];
+                let element = document.getElementById(currentP.id);
+                let gifElement = document.getElementById("cat-gif");
+                
+                // Ganti GIF di atas teks secara otomatis saat berpindah paragraf baru
+                if (gifElement && tCharIndex === 0) {
+                    gifElement.src = currentP.gif;
+                }
+                
+                if (element && tCharIndex < currentP.text.length) {
+                    element.innerHTML = element.innerHTML + currentP.text.charAt(tCharIndex);
+                    tCharIndex++;
+                    setTimeout(typeWriterStory, tSpeed);
+                } else {
+                    tIndex++;
+                    tCharIndex = 0;
+                    setTimeout(typeWriterStory, 600); // Memberikan jeda sebelum lanjut paragraf/GIF berikutnya
+                }
+            } else {
+                document.getElementById('reset-btn-area').style.display = 'block';
+            }
+        }
+
+        // JALANKAN MUSIK
+        var audio = document.getElementById('backsound');
+        window.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('musicPlaying') === 'true') {
+                var savedTime = localStorage.getItem('musicCurrentTime');
+                if (savedTime) {
+                    audio.currentTime = parseFloat(savedTime);
+                }
+                audio.play().catch(function(err) {
+                    console.log("Autoplay ditolak:", err);
+                });
+
+                setInterval(function() {
+                    localStorage.setItem('musicCurrentTime', audio.currentTime);
+                }, 100);
+            }
+            setTimeout(typeWriterStory, 600);
+        });
+
+        // Membersihkan tanda rahasia agar bisa diulang dari nol
+        function mulaiUlangSemua() {
+            localStorage.removeItem('petualanganSelesai');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

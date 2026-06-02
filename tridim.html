@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spesial Untukmu Donna ❤️</title>
+    <title>Spesial Untukmu Sayang... ❤️</title>
     <style>
         * {
             margin: 0;
@@ -96,7 +96,7 @@
             100% { transform: translateX(400px); opacity: 0; }
         }
 
-        /* Pengaturan posisi acak & kecepatan 10 bintang jatuh */
+        /* Pengaturan posisi acak & kecepatan bintang jatuh */
         .star:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; animation-duration: 3.5s; }
         .star:nth-child(2) { top: 30%; left: 40%; animation-delay: 0.8s; animation-duration: 2.8s; }
         .star:nth-child(3) { top: 15%; left: 70%; animation-delay: 1.5s; animation-duration: 4s; }
@@ -125,7 +125,7 @@
             transform: rotateX(-10deg) rotateY(0deg);
         }
 
-        /* --- TEKS I LOVE YOU DENGAN ANIMASI BERKEDIP (FADING GLOW) --- */
+        /* --- TEKS I LOVE YOU DENGAN ANIMASI BERKEDIP --- */
         .text-node {
             position: absolute;
             color: #ff477e;
@@ -135,8 +135,6 @@
             white-space: nowrap;
             transform-style: preserve-3d;
             backface-visibility: visible;
-            
-            /* Animasi redup-terang melingkar lembut */
             animation: pulseGlow 2s ease-in-out infinite alternate;
         }
 
@@ -208,11 +206,11 @@
     </div>
 
     <div class="scene">
-        <img src="foto16.png" alt="Donna Sayang" class="center-photo">
+        <img src="foto1.png" alt="Donna Sayang" class="center-photo">
         <div class="heart-container" id="heart"></div>
     </div>
 
-    <button class="back-btn" onclick="window.location.href='index.html'">↩️ Putar Lagi</button>
+    <button class="back-btn" onclick="tandaiSelesai()">↩️ Putar Lagi</button>
 
     <audio id="backsound" src="akaza_theme.mp3" loop></audio>
 
@@ -235,7 +233,7 @@
             }
         });
 
-        // --- GENERATE STRUKTUR HATI 3D AKURAT SEPERTI VIDEO ---
+        // --- GENERATE STRUKTUR HATI 3D ---
         var heartContainer = document.getElementById('heart');
         var totalNodes = 250; 
 
@@ -250,47 +248,34 @@
             
             var posX = x * scaleX;
             var posY = y * scaleY;
-
-            // Membuat kedalaman silindris gelombang 3D
             var posZ = Math.sin(t * 3) * 60; 
 
             var node = document.createElement('div');
             node.className = 'text-node';
             node.innerText = 'I LOVE YOU';
 
-            // Variasi Warna Gradasi Neon
-            if (i % 3 === 0) {
-                node.style.color = '#ff85a1';
-            } else if (i % 3 === 1) {
-                node.style.color = '#ff0a54';
-            } else {
-                node.style.color = '#f72585';
-            }
+            if (i % 3 === 0) { node.style.color = '#ff85a1'; } 
+            else if (i % 3 === 1) { node.style.color = '#ff0a54'; } 
+            else { node.style.color = '#f72585'; }
 
-            // MENGOCOK JEDA WAKTU ANIMASI TIAP TEKS (Biar kedipnya tidak kompak/mengalir indah acak)
             node.style.animationDelay = (Math.random() * 2) + "s";
 
-            // Sudut rotasi melingkar mengikuti kurva hati
             var angleRot = (t * 180 / Math.PI);
             node.style.transform = "translate3d(" + posX + "px, " + posY + "px, " + posZ + "px) rotateY(" + angleRot + "deg)";
             
             heartContainer.appendChild(node);
         }
 
-        // --- SISTEM GERAKAN INTERAKTIF DRAG 360 DERAJAT ---
+        // --- SISTEM ROTASI INTERAKTIF DRAG 360 ---
         var targetX = 0, targetY = -10;
         var currentX = 0, currentY = -10;
         var isDragging = false;
         var previousMouseX = 0, previousMouseY = 0;
 
         function autoRotate() {
-            if (!isDragging) {
-                targetX += 0.2; 
-            }
-            
+            if (!isDragging) { targetX += 0.2; }
             currentX += (targetX - currentX) * 0.1;
             currentY += (targetY - currentY) * 0.1;
-            
             heartContainer.style.transform = "rotateX(" + currentY + "deg) rotateY(" + currentX + "deg)";
             requestAnimationFrame(autoRotate);
         }
@@ -305,10 +290,8 @@
         document.addEventListener('mousemove', doDrag);
         function doDrag(e) {
             if (!isDragging) return;
-            
             var currentMouseX = e.clientX || (e.touches && e.touches[0].clientX);
             var currentMouseY = e.clientY || (e.touches && e.touches[0].clientY);
-
             if (!currentMouseX || !currentMouseY) return;
 
             var deltaX = currentMouseX - previousMouseX;
@@ -316,23 +299,25 @@
 
             targetX += deltaX * 0.4; 
             targetY -= deltaY * 0.4; 
-            
             targetY = Math.max(-60, Math.min(60, targetY));
 
             previousMouseX = currentMouseX;
             previousMouseY = currentMouseY;
         }
 
-        function endDrag() {
-            isDragging = false;
-        }
+        function endDrag() { isDragging = false; }
 
         window.addEventListener('mousedown', startDrag);
         window.addEventListener('mouseup', endDrag);
-
         window.addEventListener('touchstart', startDrag, { passive: true });
         window.addEventListener('touchmove', doDrag, { passive: true });
         window.addEventListener('touchend', endDrag);
+
+        // FUNGSI SIMPAN TANDA RAHASIA KE MEMORI BROWSER
+        function tandaiSelesai() {
+            localStorage.setItem('petualanganSelesai', 'true');
+            window.location.href = 'index.html';
+        }
     </script>
 </body>
 </html>
