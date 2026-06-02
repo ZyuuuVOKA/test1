@@ -11,33 +11,20 @@
     <div class="container">
         <div class="heart-icon">🤍🤍🤍</div>
         <div class="text-box final-text">
-            <p id="f1" style="text-align: center; font-style: italic; margin-bottom: 15px;"></p>
-            <p id="f2" style="text-align: center; font-style: italic; margin-bottom: 15px;"></p>
-            <p id="f3" style="text-align: center; font-style: italic;"></p>
+            <p id="f1" style="text-align: center; font-style: italic; margin-bottom: 15px; line-height: 1.6;"></p>
+            <p id="f2" style="text-align: center; font-style: italic; margin-bottom: 15px; line-height: 1.6;"></p>
+            <p id="f3" style="text-align: center; font-style: italic; margin-bottom: 15px; line-height: 1.6;"></p>
+        </div>
+
+        <div class="btn-wrapper" id="next-button-area" style="margin-top: 25px;">
+            <button class="next-btn" onclick="window.location.href='tridim.html'">Klik Ini Lagi Sayang 👉</button>
         </div>
     </div>
 
-    <!-- Elemen Audio untuk Meneruskan Lagu -->
     <audio id="backsound" src="akaza_theme.mp3" loop></audio>
 
     <script>
-        // MENERUSKAN MUSIK DARI DETIK TERAKHIR
-        var audio = document.getElementById('backsound');
-        window.addEventListener('load', function() {
-            if (localStorage.getItem('musicPlaying') === 'true') {
-                var savedTime = localStorage.getItem('musicCurrentTime');
-                if (savedTime) {
-                    audio.currentTime = parseFloat(savedTime);
-                }
-                audio.play().catch(function(err) {
-                    console.log("Autoplay ditolak:", err);
-                });
-            }
-            // Mulai efek mengetik halaman terakhir
-            typeWriterFinal();
-        });
-
-        // SCRIPT EFEK MENGETIK HALAMAN TERAKHIR
+        // Data Paragraf Halaman Terakhir
         const finalParagraphs = [
             { id: "f1", text: "Sayang, di hari spesialmu ini aku cuma ingin bilang kalau aku sangat bersyukur bisa memilikimu dalam hidupku. Walaupun jarak memisahkan kita, rasa syukurku karena ada kamu tidak pernah berkurang sedikit pun." },
             { id: "f2", text: "Maaf kalau sampai sekarang aku masih banyak kurangnya, belum bisa memenuhi semua keinginanmu, dan belum bisa memberikan yang terbaik untukmu. Tapi percayalah, aku selalu berusaha menjadi versi terbaik dari diriku untuk kamu dan untuk hubungan kita." },
@@ -46,24 +33,45 @@
 
         let fIndex = 0;
         let fCharIndex = 0;
-        const fSpeed = 35; 
+        const fSpeed = 30; 
 
+        // Menggunakan penggabungan string yang aman dari eror tanda petik
         function typeWriterFinal() {
             if (fIndex < finalParagraphs.length) {
                 let currentP = finalParagraphs[fIndex];
                 let element = document.getElementById(currentP.id);
                 
-                if (fCharIndex < currentP.text.length) {
-                    element.innerHTML += currentP.text.charAt(fCharIndex);
+                if (element && fCharIndex < currentP.text.length) {
+                    element.innerHTML = element.innerHTML + currentP.text.charAt(fCharIndex);
                     fCharIndex++;
                     setTimeout(typeWriterFinal, fSpeed);
                 } else {
                     fIndex++;
                     fCharIndex = 0;
-                    setTimeout(typeWriterFinal, 300);
+                    setTimeout(typeWriterFinal, 200);
                 }
             }
         }
+
+        // MENERUSKAN MUSIK DARI DETIK TERAKHIR
+        var audio = document.getElementById('backsound');
+        window.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('musicPlaying') === 'true') {
+                var savedTime = localStorage.getItem('musicCurrentTime');
+                if (savedTime) {
+                    audio.currentTime = parseFloat(savedTime);
+                }
+                audio.play().catch(function(err) {
+                    console.log("Autoplay ditolak:", err);
+                });
+
+                setInterval(function() {
+                    localStorage.setItem('musicCurrentTime', audio.currentTime);
+                }, 100);
+            }
+            // Jalankan efek mengetik
+            setTimeout(typeWriterFinal, 500);
+        });
     </script>
 </body>
 </html>
